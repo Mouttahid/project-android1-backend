@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->bigInteger('chef_id')->unsigned()->nullable()->default(null);
+            $table->foreign("chef_id")->references("id")->on("users")->onDelete('cascade')->onUpdate("cascade");
         });
     }
 
