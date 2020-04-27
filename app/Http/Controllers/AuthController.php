@@ -80,7 +80,7 @@ class AuthController extends Controller
                     $tokenResult->token->expires_at
                 )->toDateTimeString(),
                 "user" => $request->user(),
-                "role" => $request->user()->getRoleNames()
+                "role" => $request->user()->getRoleNames()[0]
             ]);
         }
     }
