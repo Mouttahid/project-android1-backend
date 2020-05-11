@@ -40,4 +40,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+
+    public function getChef()
+    {
+        return $this->belongsTo('App\User',"chef_id");
+    }
+
+    public function getEquipe()
+    {
+        return $this->hasMany('App\User',"chef_id");
+    }
+
+    public function getTasks()
+    {
+        return $this->hasMany('App\Task',"user_id");
+    }
+
 }

@@ -18,17 +18,21 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|string|confirmed|unique:users',
             'password' => 'required|string|confirmed',
-            'role' => "required|string"
+            'role' => "required|string",
         ]);
 
         if ($validator->fails()) {
             return response()->json(['type' => 'errors', 'msg' => $validator->getMessageBag()], 200);
         } else {
-            $user = new User([
+            $fillables = [
                 'fullname' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-            ]);
+            ];
+            if ($request->has("chef")) {
+                $fillables["chef_id"] = $request->chef;
+            }
+            $user = User::create($fillables);
             if ($user->save()) {
                 if ($user->assignRole($request->role)) {
                     return response()->json([
@@ -107,9 +111,9 @@ class AuthController extends Controller
     {
         return response()->json($request->user()->getRoleNames());
     }
-    public function UserWithRoles(Request $request){
+    public function UserWithRoles(Request $request)
+    {
         return response()->json(["success" => true, $request->user(),$request->user()->getRoleNames()]);
-
     }
     public function verifyAuth(Request $request)
     {
@@ -117,5 +121,20 @@ class AuthController extends Controller
             return response()->json(true);
         }
         return response()->json(false);
+    }
+
+    public function asignUsertoTeam(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->chef_id = $request->chef;
+        if ($user->save()) {
+            return response()->json([
+                "success" => true,
+            ]);
+        } else {
+            return response()->json([
+                "success" => false
+            ]);
+        }
     }
 }

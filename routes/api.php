@@ -30,5 +30,16 @@ Route::group([
         Route::post('userroles','AuthController@checkUserRole');
         Route::post('userwroles','AuthController@UserWithRoles');
         Route::post('verifyauth',"AuthController@verifyAuth");
+        Route::post('assign',"AuthController@asignUsertoTeam");
+    });
+});
+
+Route::group(['prefix' => 'tasks'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get("mine","TasksController@getAuthedUserTasks");
+        Route::get("user","TasksController@getTasksPerUser");
+        Route::post("create","TasksController@create");
+        Route::post("delete","TasksController@delete");
+        Route::post("update","TasksController@update");
     });
 });
