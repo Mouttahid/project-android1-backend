@@ -41,10 +41,9 @@ class AccountCreatedNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        dd($this->arr);
         return (new MailMessage)->subject("Task App : Account Created")
                     ->line('Your account on Task App has been created .')
-                    ->line("Here's your password : ".$notifiable);
+                    ->line("Here's your password : ".$this->arr);
     }
 
     /**
