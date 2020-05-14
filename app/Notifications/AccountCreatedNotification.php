@@ -38,9 +38,8 @@ class AccountCreatedNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable,$password)
     {
-        $password = $notifiable->password;
         return (new MailMessage)->subject("Task App : Account Created")
                     ->line('Your account on Task App has been created .')
                     ->line("Here's your password : ".$password);
