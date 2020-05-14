@@ -35,7 +35,7 @@ class AuthController extends Controller
             $user = null;
             if ($user = User::create($fillables)) {
                 if ($user->assignRole($request->role)) {
-                    $user->notify(new AccountCreatedNotification($user,$password));
+                    $user->notify(new AccountCreatedNotification($password));
                     return response()->json([
                         'success' => true,
                         'msg' => 'user created successfully'
