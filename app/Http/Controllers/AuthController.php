@@ -2,16 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\AccountCreatedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Validator;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
-    //
+    public function createUser(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|string|confirmed|unique:users',
+            'role' => "required|string",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['type' => 'errors', 'msg' => $validator->getMessageBag()], 200);
+        } else {
+            $password = Str::random(10);
+            $fillables = [
+                'fullname' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($password),
+            ];
+            if ($request->has("chef")) {
+                $fillables["chef_id"] = $request->chef;
+            }
+            $user = null;
+            if ($user = User::create($fillables)) {
+                if ($user->assignRole($request->role)) {
+                    $user->notify(new AccountCreatedNotification($user));
+                    return response()->json([
+                        'success' => true,
+                        'msg' => 'user created successfully'
+                    ], 201);
+                }
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'user creation failed'
+                ], 201);
+            }
+        }
+    }
+
     public function signup(Request $request)
     {
         $validator = \Validator::make($request->all(), [
