@@ -10,15 +10,16 @@ use Illuminate\Notifications\Notification;
 class AccountCreatedNotification extends Notification
 {
     use Queueable;
-
+    protected $arr;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $arr)
     {
         //
+        $this->arr = $arr;
     }
 
     /**
@@ -40,6 +41,7 @@ class AccountCreatedNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        dd($this->arr);
         return (new MailMessage)->subject("Task App : Account Created")
                     ->line('Your account on Task App has been created .')
                     ->line("Here's your password : ".$notifiable);
