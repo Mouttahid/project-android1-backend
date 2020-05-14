@@ -21,10 +21,10 @@ Route::group([
     'prefix' => 'auth'
 ], function () {
     Route::post('login', 'AuthController@login');
-    Route::post('create', 'AuthController@createUser');
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
+        Route::post('create', 'AuthController@createUser')->middleware("role:admin");
         Route::post('logout', 'AuthController@logout');
         Route::post('user', 'AuthController@user');
         Route::post('userroles','AuthController@checkUserRole');

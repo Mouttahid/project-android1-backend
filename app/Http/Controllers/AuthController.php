@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function createUser(Request $request){
         $validator = \Validator::make($request->all(), [
             'name' => 'required|string',
-            'email' => 'required|string|confirmed|unique:users',
+            'email' => 'required|string|unique:users',
             'role' => "required|string",
         ]);
 
