@@ -25,7 +25,7 @@ class AuthController extends Controller
         } else {
             $password = Str::random(10);
             $fillables = [
-                'fullname' => $request->name,
+                'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($password),
             ];
