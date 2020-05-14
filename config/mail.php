@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('smtp.gmail.com', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('achrafbister@gmail.com'),
-            'password' => env('19960807aK'),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
         ],
 
@@ -82,9 +82,10 @@ return [
     |
     */
 
+
     'from' => [
         'address' => env('achrafbister@gmail.com', 'hello@example.com'),
-        'name' => env('achrafbister@gmail.com', 'Example'),
+        'name' => env('task app', 'Example'),
     ],
 
     /*
