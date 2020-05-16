@@ -58,6 +58,6 @@ class User extends Authenticatable
     }
 
     public static function getChiefs(){
-        return $this->whereHas("roles", function($q){ $q->where("name", "Team Chief"); })->get();
+        return User::whereHas("roles", function($q){ $q->where("name", "Team Chief"); })->get();
     }
 }
