@@ -57,4 +57,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Task',"user_id");
     }
 
+    public static function getChiefs(){
+        return $this->whereHas("roles", function($q){ $q->where("name", "Team Chief"); })->get();
+    }
 }
