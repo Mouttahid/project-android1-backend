@@ -24,7 +24,7 @@ Route::group([
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
-        Route::group(['middleware' => 'admin'], function () {
+        Route::group(['middleware' => 'Admin'], function () {
             Route::post('create', 'AuthController@createUser');
             Route::get("chiefs","AuthController@getChiefs");
         });

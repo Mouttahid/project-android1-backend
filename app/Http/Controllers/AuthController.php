@@ -162,7 +162,7 @@ class AuthController extends Controller
             unset($user["roles"]);
             return response()->json(["success" => true, "user" => $user]);
         }
-        return response()->json(false);
+        return response()->json(["success" => false]);
     }
 
     public function asignUsertoTeam(Request $request)
