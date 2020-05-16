@@ -156,7 +156,7 @@ class AuthController extends Controller
     public function verifyAuth(Request $request)
     {
         if ($request->user()) {
-            return response()->json(["success" => true, $request->user(),$request->user()->getRoleNames()]);
+            return response()->json(["success" => true, $request->user()]);
         }
         return response()->json(false);
     }
