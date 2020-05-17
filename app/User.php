@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function getChef()
     {
-        return $this->belongsTo("App\User","chef_id");
+        return $this->belongsTo("App\User","id");
     }
 
     public function getEquipe()
