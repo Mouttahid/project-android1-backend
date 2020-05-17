@@ -44,12 +44,12 @@ class User extends Authenticatable
 
     public function getChef()
     {
-        return $this->belongsTo('App\User',"chef_id");
+        return $this->belongsTo(User::class,"id");
     }
 
     public function getEquipe()
     {
-        return $this->hasMany('App\User',"chef_id");
+        return $this->hasMany(User::class,"chef_id");
     }
 
     public function getTasks()
