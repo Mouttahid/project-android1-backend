@@ -65,6 +65,7 @@ class User extends Authenticatable
         $users = User::all();
         foreach ($users as $user) {
             $user->getRoleNames();
+            $user->getChef();
             $user["role"] = $user['roles'][0]->name;
             unset($user["roles"]);
         }
