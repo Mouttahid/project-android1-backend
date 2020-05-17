@@ -64,10 +64,7 @@ class User extends Authenticatable
     public static function getUsersWithRoles(){
         $users = User::all();
         foreach ($users as $user) {
-            $user->getRoleNames();
             $user->getChef();
-            $user["role"] = $user['roles'][0]->name;
-            unset($user["roles"]);
         }
         return $users;
     }
