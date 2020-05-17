@@ -62,7 +62,7 @@ class User extends Authenticatable
     }
 
     public static function getUsersWithRoles(){
-        $users = User::find(1);
+        $user = User::find(1);
         // foreach ($users as $user) {
         //     $user->getChef();
         // }
