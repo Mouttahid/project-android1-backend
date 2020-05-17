@@ -31,6 +31,7 @@ class AuthController extends Controller
             ];
             if ($request->has("chef")) {
                 $fillables["chef_id"] = $request->chef;
+                dd($fillables);
             }
             $user = null;
             if ($user = User::create($fillables)) {
