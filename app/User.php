@@ -60,4 +60,14 @@ class User extends Authenticatable
     public static function getChiefs(){
         return User::whereHas("roles", function($q){ $q->where("name", "Team Chief"); })->get();
     }
+
+    public static function getUsersWithRoles(){
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->getRoleNames();
+            $user["role"] = $user['roles'][0]->name;
+            unset($user["roles"]);
+        }
+        return $users;
+    }
 }

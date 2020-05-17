@@ -183,4 +183,8 @@ class AuthController extends Controller
     public function getChiefs(Request $request){
         return response()->json(["success"=>true,"chiefs" =>  User::getChiefs()]);
     }
+
+    public function getUsers(Request $request){
+        return response()->json(User::getUsersWithRoles());
+    }
 }
